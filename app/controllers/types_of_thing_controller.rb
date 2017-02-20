@@ -6,7 +6,7 @@ class TypesOfThingController < ApplicationController
     @types_of_thing = TypeOfThing.all
   end
 
-  def show
+  def show    
   end
 
   def update

@@ -357,11 +357,17 @@ Work up a sweat in our 24-hour StayFit Gym, which features Life Fitness® cardio
     create_image organizer, image
 
     puts "Creating Types of things"
-    TypeOfThing.create(name: "Museum")
+    museum = TypeOfThing.create(name: "Museum")
     TypeOfThing.create(name: "Train station")
-    TypeOfThing.create(name: "Shop")
+    shop = TypeOfThing.create(name: "Shop")
     TypeOfThing.create(name: "Library")
     TypeOfThing.create(name: "Church")
+
+    puts "Linking Types of things with things"
+    Thing.all.each do |thing|
+      ThingTypeOfThing.create(type_of_thing: museum, thing: thing)
+      ThingTypeOfThing.create(type_of_thing: shop, thing: thing)
+    end
 
     puts "#{Thing.count} things created and #{ThingImage.count("distinct thing_id")} with images"
     puts "#{Image.count} images created and #{ThingImage.count("distinct image_id")} for things"
