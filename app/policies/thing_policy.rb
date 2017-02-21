@@ -1,10 +1,10 @@
 class ThingPolicy < ApplicationPolicy
   def index?
-    true
+    @user
   end
 
   def show?
-    true
+    @user
   end
 
   def create?
@@ -54,7 +54,7 @@ class ThingPolicy < ApplicationPolicy
              end}
     end
     def resolve
-      user_roles 
+      user_roles
     end
   end
 end

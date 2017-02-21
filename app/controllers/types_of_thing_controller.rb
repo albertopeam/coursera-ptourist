@@ -1,12 +1,15 @@
 class TypesOfThingController < ApplicationController
 
-  before_action :set_type_of_thing, only: [:show, :update, :destroy]
+  before_action :set_type_of_thing, only: [:show]
+  after_action :verify_authorized
 
   def index
+    authorize(TypeOfThing)
     @types_of_thing = TypeOfThing.all
   end
 
   def show
+    authorize(@type_of_thing)
   end
 
   private
