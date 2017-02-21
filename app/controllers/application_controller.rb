@@ -10,6 +10,7 @@ class ApplicationController < ActionController::API
   rescue_from Mongoid::Errors::DocumentNotFound, with: :record_not_found
   rescue_from ActionController::ParameterMissing, with: :missing_parameter
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
 
   protected
     def full_message_error full_message, status
@@ -18,12 +19,13 @@ class ApplicationController < ActionController::API
       }
       render :json=>payload, :status=>status
     end
-    def record_not_found(exception) 
+
+    def record_not_found(exception)
       full_message_error "cannot find id[#{params[:id]}]", :not_found
       Rails.logger.debug exception.message
     end
 
-    def missing_parameter(exception) 
+    def missing_parameter(exception)
       payload = {
         errors: { full_messages:["#{exception.message}"] }
       }
@@ -33,7 +35,7 @@ class ApplicationController < ActionController::API
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    end 
+    end
 
     def user_not_authorized(exception)
       user=pundit_user ? pundit_user.uid : "Anonymous user"
@@ -42,5 +44,10 @@ class ApplicationController < ActionController::API
       }
       render :json=>payload, :status=>:forbidden
       Rails.logger.debug exception
+    end
+
+    def record_not_unique(exception)
+      full_message_error "record not unique id[#{params[:id]}]", :forbidden
+      Rails.logger.debug exception.message
     end
 end

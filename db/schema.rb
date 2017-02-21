@@ -59,10 +59,8 @@ ActiveRecord::Schema.define(version: 20170220215514) do
   add_index "thing_images", ["thing_id"], name: "index_thing_images_on_thing_id", using: :btree
 
   create_table "thing_type_of_things", force: :cascade do |t|
-    t.integer  "thing_id"
-    t.integer  "type_of_thing_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "thing_id",         null: false
+    t.integer "type_of_thing_id", null: false
   end
 
   add_index "thing_type_of_things", ["thing_id", "type_of_thing_id"], name: "index_thing_type_of_things_on_thing_id_and_type_of_thing_id", unique: true, using: :btree
@@ -117,4 +115,6 @@ ActiveRecord::Schema.define(version: 20170220215514) do
   add_foreign_key "roles", "users"
   add_foreign_key "thing_images", "images"
   add_foreign_key "thing_images", "things"
+  add_foreign_key "thing_type_of_things", "things"
+  add_foreign_key "thing_type_of_things", "type_of_things"
 end

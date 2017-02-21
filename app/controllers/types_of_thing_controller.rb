@@ -6,13 +6,7 @@ class TypesOfThingController < ApplicationController
     @types_of_thing = TypeOfThing.all
   end
 
-  def show    
-  end
-
-  def update
-  end
-
-  def destroy
+  def show
   end
 
   private
