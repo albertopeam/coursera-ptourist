@@ -368,14 +368,14 @@ Work up a sweat in our 24-hour StayFit Gym, which features Life Fitness® cardio
 
 
     puts "Linking Types of things with things"
-    thing = Thing.find(name: "B&O Railroad Museum")
+    thing = Thing.where(name: "B&O Railroad Museum").first
     ThingTypeOfThing.create(type_of_thing: museum, thing: thing)
     ThingTypeOfThing.create(type_of_thing: shop, thing: thing)
 
-    thing = Thing.find(name: "National Aquarium")
+    thing = Thing.where(name: "National Aquarium").first
     ThingTypeOfThing.create(type_of_thing: aquarium, thing: thing)
 
-    thing = Thing.find(name: "Baltimore Water Taxi")
+    thing = Thing.where(name: "Baltimore Water Taxi").first
     ThingTypeOfThing.create(type_of_thing: cab, thing: thing)
 
 
