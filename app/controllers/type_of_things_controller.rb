@@ -1,4 +1,4 @@
-class TypesOfThingController < ApplicationController
+class TypeOfThingsController < ApplicationController
 
   before_action :set_type_of_thing, only: [:show]
   after_action :verify_authorized
