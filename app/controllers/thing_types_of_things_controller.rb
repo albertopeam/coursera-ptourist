@@ -7,11 +7,9 @@ class ThingTypesOfThingsController < ApplicationController
   before_action :set_type_of_thing, only: [:create]
   before_action :set_thing_type_of_thing, only: [:destroy]
   wrap_parameters :thing, include: [:thing_id]
-  #after_action :verify_authorized
+  after_action :verify_authorized
 
   def create
-    #ojo que puede crear el thing organizer
-    byebug
     authorize(ThingTypeOfThing)
     @type_of_thing.thing_type_of_things.build(thing: @thing)
     if @type_of_thing.save
@@ -22,8 +20,6 @@ class ThingTypesOfThingsController < ApplicationController
   end
 
   def destroy
-    #ojo que puede destruir el thing organizer
-    byebug
     authorize(@thing_type_of_thing)
     if @thing_type_of_thing.blank?
       render json:{}, status: :not_found
