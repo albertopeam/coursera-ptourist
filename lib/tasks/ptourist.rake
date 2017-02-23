@@ -366,6 +366,10 @@ Work up a sweat in our 24-hour StayFit Gym, which features Life Fitness® cardio
     aquarium = TypeOfThing.create(name: "Aquarium")
     cab = TypeOfThing.create(name: "Taxi stand")
 
+    puts "add greg as Thing Organizer"
+    greg = get_user("greg")
+    greg.add_role(Role::ORGANIZER, Thing)
+    greg.save!
 
     puts "Linking Types of things with things"
     thing = Thing.where(name: "B&O Railroad Museum").first
