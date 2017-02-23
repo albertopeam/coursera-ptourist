@@ -9,20 +9,20 @@ RSpec.describe "TypesOfThing", type: :request do
     context "caller is anonymous" do
       it "cannot list types of thing" do
         jget type_of_things_path
-        expect(response).to have_http_status(:forbidden)
-        payload=parsed_body
-        expect(payload).to have_key("errors")
-        expect(payload["errors"]).to have_key("full_messages")
-        expect(payload["errors"]["full_messages"][0]).to include("Anonymous user not authorized")
+        expect(response).to have_http_status(:unauthorized)
+        # payload=parsed_body
+        # expect(payload).to have_key("errors")
+        # expect(payload["errors"]).to have_key("full_messages")
+        # expect(payload["errors"]["full_messages"][0]).to include("Anonymous user not authorized")
       end
 
       it "cannot show types of thing" do
         jget type_of_thing_path(type_of_thing)
-        expect(response).to have_http_status(:forbidden)
-        payload=parsed_body
-        expect(payload).to have_key("errors")
-        expect(payload["errors"]).to have_key("full_messages")
-        expect(payload["errors"]["full_messages"][0]).to include("Anonymous user not authorized")
+        expect(response).to have_http_status(:unauthorized)
+        # payload=parsed_body
+        # expect(payload).to have_key("errors")
+        # expect(payload["errors"]).to have_key("full_messages")
+        # expect(payload["errors"]["full_messages"][0]).to include("Anonymous user not authorized")
       end
     end
 

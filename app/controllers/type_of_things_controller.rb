@@ -1,5 +1,6 @@
 class TypeOfThingsController < ApplicationController
 
+  before_action :authenticate_user!, only: [:index, :show]
   before_action :set_type_of_thing, only: [:show]
   after_action :verify_authorized
 
