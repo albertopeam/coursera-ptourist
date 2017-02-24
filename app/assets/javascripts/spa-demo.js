@@ -45,3 +45,6 @@
 //= require spa-demo/subjects/things/things_authz.service
 //= require spa-demo/subjects/things/things_authz.directive
 //= require spa-demo/subjects/things/things.component
+
+//= require spa-demo/subjects/types/types.service
+//= require spa-demo/subjects/types/types.component
