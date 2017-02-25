@@ -77,14 +77,14 @@
       vm.item = Type.get({id:itemId});
       $q.all([vm.item.$promise])
         .then(function(result){
+          vm.linkable_things = [{
+            id:2,
+            name: "Baltimore Water Taxi"
+          }];
+          vm.selected_linkables = [];
           console.log("TypeEditorController-", result);
         })
         .catch(handleError);
-    }
-
-    function clear() {
-      console.log("TypeEditorController-clear");
-      $state.go(".", {id:null});
     }
 
     function handleError(response) {

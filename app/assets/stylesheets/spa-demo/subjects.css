@@ -1,4 +1,5 @@
-
+form.type-form .id,
+div.type-list .id,
 form.thing-form .id,
 div.thing-list .id,
 form.image-form .id,
@@ -7,6 +8,7 @@ div.image-list .id {
 }
 
 sd-image-editor form,
+sd-types-editor form,
 sd-thing-editor form {
   padding-left: 15px;
   padding-right: 15px;
