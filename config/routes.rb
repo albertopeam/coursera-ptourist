@@ -17,7 +17,9 @@ Rails.application.routes.draw do
       resources :thing_images, only: [:index, :create, :update, :destroy]
       resources :type_of_things, only: [:create, :destroy], controller: "thing_types_of_things"
     end
-    resources :type_of_things, only: [:index, :show]
+    resources :type_of_things, only: [:index, :show] do
+      get "linkable_things",  controller: :type_of_things, action: :linkable_things
+    end
   end
 
   get "/client-assets/:name.:format", :to => redirect("/client/client-assets/%{name}.%{format}")

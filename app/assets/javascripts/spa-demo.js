@@ -47,4 +47,5 @@
 //= require spa-demo/subjects/things/things.component
 
 //= require spa-demo/subjects/types/types.service
+//= require spa-demo/subjects/types/types_linkable_things.service
 //= require spa-demo/subjects/types/types.component

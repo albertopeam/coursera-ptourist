@@ -8,4 +8,8 @@ class Thing < ActiveRecord::Base
 
   scope :not_linked, ->(image) { where.not(:id=>ThingImage.select(:thing_id)
                                                           .where(:image=>image)) }
+
+  scope :not_linked_to_type, ->(type) {
+    where.not(:id=>ThingTypeOfThing.select(:thing_id).where(:type_of_thing=>type))
+  }
 end
