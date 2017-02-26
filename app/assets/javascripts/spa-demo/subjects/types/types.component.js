@@ -51,12 +51,14 @@
                                    "$state", "$stateParams",
                                    "spa-demo.authz.Authz",
                                    "spa-demo.subjects.Type",
-                                   "spa-demo.subjects.TypeLinkableThing"
+                                   "spa-demo.subjects.TypeLinkableThing",
+                                   "spa-demo.subjects.TypeOfThingThing"
                                    ];
   function TypeEditorController($scope, $q, $state, $stateParams,
-                                 Authz, Type, TypeLinkableThing) {
+                                 Authz, Type, TypeLinkableThing, TypeOfThingThing) {
     var vm=this;
     vm.selected_linkables=[];
+    vm.linkThings = linkThings;
 
     vm.$onInit = function() {
       console.log("TypeEditorController",$scope);
@@ -88,6 +90,27 @@
         // })
         .catch(handleError);
     }
+
+    function linkThings() {
+      console.log("linkThings");
+      var promises=[];
+      angular.forEach(vm.selected_linkables, function(linkable){
+        console.log("linking to:", linkable);
+        var resource = TypeOfThingThing.save({thing_id:linkable}, {id:vm.item.id});
+        promises.push(resource.$promise);
+      });
+
+      vm.selected_linkables=[];
+      console.log("waiting for promises", promises);
+      $q.all(promises).then(
+        function(response){
+          console.log("promise.all response", response);
+          $scope.typeform.$setPristine();
+          reload();
+        },
+        handleError);
+    }
+
 
     function handleError(response) {
       console.log("TypeEditorController-error", response);
