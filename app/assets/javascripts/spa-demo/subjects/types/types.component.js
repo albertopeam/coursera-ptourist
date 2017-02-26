@@ -50,11 +50,13 @@
   TypeEditorController.$inject = ["$scope","$q",
                                    "$state", "$stateParams",
                                    "spa-demo.authz.Authz",
-                                   "spa-demo.subjects.Type"
+                                   "spa-demo.subjects.Type",
+                                   "spa-demo.subjects.TypeLinkableThing"
                                    ];
   function TypeEditorController($scope, $q, $state, $stateParams,
-                                 Authz, Type) {
+                                 Authz, Type, TypeLinkableThing) {
     var vm=this;
+    vm.selected_linkables=[];
 
     vm.$onInit = function() {
       console.log("TypeEditorController",$scope);
@@ -75,15 +77,15 @@
       var itemId = typeId ? typeId : vm.item.id;
       console.log("TypeEditorController-re/loading type", itemId);
       vm.item = Type.get({id:itemId});
+      vm.linkable_things = TypeLinkableThing.query({type_of_thing_id:itemId});
       $q.all([vm.item.$promise])
-        .then(function(result){
-          vm.linkable_things = [{
-            id:2,
-            name: "Baltimore Water Taxi"
-          }];
-          vm.selected_linkables = [];
-          console.log("TypeEditorController-", result);
-        })
+        // .then(function(result){
+        //   vm.linkable_things = [{
+        //     id:2,
+        //     name: "Baltimore Water Taxi"
+        //   }];
+        //   console.log("TypeEditorController-", result);
+        // })
         .catch(handleError);
     }
 
