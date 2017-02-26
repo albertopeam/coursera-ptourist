@@ -59,6 +59,8 @@
     var vm=this;
     vm.selected_linkables=[];
     vm.linkThings = linkThings;
+    vm.removeLinks = removeLinks;
+    vm.haveDirtyLinks = haveDirtyLinks;
 
     vm.$onInit = function() {
       console.log("TypeEditorController",$scope);
@@ -80,15 +82,7 @@
       console.log("TypeEditorController-re/loading type", itemId);
       vm.item = Type.get({id:itemId});
       vm.linkable_things = TypeLinkableThing.query({type_of_thing_id:itemId});
-      $q.all([vm.item.$promise])
-        // .then(function(result){
-        //   vm.linkable_things = [{
-        //     id:2,
-        //     name: "Baltimore Water Taxi"
-        //   }];
-        //   console.log("TypeEditorController-", result);
-        // })
-        .catch(handleError);
+      $q.all([vm.item.$promise]).catch(handleError);
     }
 
     function linkThings() {
@@ -111,6 +105,38 @@
         handleError);
     }
 
+    function removeLinks() {
+      console.log("removing thing to type of thing");
+      var promises = [];
+      angular.forEach(vm.item.things, function(thing){
+        if (thing.toRemove) {
+          console.log("toremove", thing);
+          promises.push(TypeOfThingThing.delete({thing_id:thing.id, id:vm.item.id}));
+        }
+      });
+
+      console.log("waiting for promises", promises);
+      $q.all(promises).then(
+        function(response){
+          console.log("promise.all response", response);
+          $scope.typeform.$setPristine();
+          reload();
+        },
+        handleError);
+    }
+
+    function haveDirtyLinks() {
+      if (vm.item === undefined || vm.item.things === undefined || vm.item.things == null) {
+        return false;
+      }
+      for (var i=0; vm.item.things && i<vm.item.things.length; i++) {
+        var thing = vm.item.things[i];
+        if (thing.toRemove) {
+          return true;
+        }
+      }
+      return false;
+    }
 
     function handleError(response) {
       console.log("TypeEditorController-error", response);
