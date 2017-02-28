@@ -1,4 +1,5 @@
-<div ng-show="$ctrl.authz.canQuery">
+<div ng-show="$ctrl.authz.canQuery()">
+<div>
   <div class="type-name row col-lg-12"
        ng-show="$ctrl.item.id">
     <label class="col-xs-3">Name:</label>
@@ -22,7 +23,7 @@
                  name="thing-delete"
                  ng-model="thing.toRemove"
                  value="{{thing.id}}"
-                 ng-show="$ctrl.authz.canModify">
+                 ng-show="$ctrl.authz.canModify()">
           <div class="thing-delete glyphicon glyphicon-remove"
                ng-show="thing.toRemove"></div>
           <a data-ui-sref="things({id:thing.id})">
@@ -34,7 +35,7 @@
 
 
     <div class="linkable-things row col-lg-12"
-         ng-show="$ctrl.authz.canModify && $ctrl.linkable_things.length>0">
+         ng-show="$ctrl.authz.canModify() && $ctrl.linkable_things.length>0">
       <label class="col-xs-3">Assignable Things:</label>
       <div class="link-things" class="col-xs-9">
         <select name="linkable-things"
@@ -49,7 +50,7 @@
 
 
     <div class="type-controls"
-         ng-show="$ctrl.authz.canModify && $ctrl.linkable_things.length>0">
+        ng-show="$ctrl.authz.canModify() && $ctrl.linkable_things.length>0">
       <span>
         <span ng-show="$ctrl.item.id">
           <button name="type-update"

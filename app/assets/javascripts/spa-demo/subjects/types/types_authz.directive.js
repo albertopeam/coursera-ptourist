@@ -51,7 +51,17 @@
       vm.authz.authenticated = TypesAuthz.isAuthenticated();
       vm.authz.canQuery      = TypesAuthz.canQuery();
       vm.authz.canModify      = TypesAuthz.canModify();
-      
+      if (item && item.$promise) {
+        item.$promise.then(function(){ checkAccess(item); });
+      } else {
+        checkAccess(item);
+      }
+    }
+
+    function checkAccess(item) {
+      vm.authz.authenticated = TypesAuthz.isAuthenticated();
+      vm.authz.canQuery      = TypesAuthz.canQuery();
+      vm.authz.canModify      = TypesAuthz.canModify();
       console.log("checkAccess", item, vm.authz);
     }
   }

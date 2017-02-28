@@ -33,10 +33,12 @@
   TypeSelectorController.$inject = ["$scope",
                                      "$stateParams",
                                      "spa-demo.authz.Authz",
-                                     "spa-demo.subjects.Type"];
-  function TypeSelectorController($scope, $stateParams, Authz, Type) {
+                                     "spa-demo.subjects.Type",
+                                     "spa-demo.subjects.TypesAuthz"];
+  function TypeSelectorController($scope, $stateParams, Authz, Type, TypesAuthz) {
     console.log("TypeSelectorController");
     var vm=this;
+    vm.authz = TypesAuthz;
 
     vm.$onInit = function() {
       console.log("TypeSelectorController",$scope);
@@ -59,15 +61,17 @@
                                    "spa-demo.authz.Authz",
                                    "spa-demo.subjects.Type",
                                    "spa-demo.subjects.TypeLinkableThing",
-                                   "spa-demo.subjects.TypeOfThingThing"
-                                   ];
+                                   "spa-demo.subjects.TypeOfThingThing",
+                                   "spa-demo.subjects.TypesAuthz"];
   function TypeEditorController($scope, $q, $state, $stateParams,
-                                 Authz, Type, TypeLinkableThing, TypeOfThingThing) {
+                                 Authz, Type, TypeLinkableThing, TypeOfThingThing
+                               ,TypesAuthz) {
     var vm=this;
     vm.selected_linkables=[];
     vm.linkThings = linkThings;
     vm.removeLinks = removeLinks;
     vm.haveDirtyLinks = haveDirtyLinks;
+    vm.authz = TypesAuthz;
 
     vm.$onInit = function() {
       console.log("TypeEditorController",$scope);
