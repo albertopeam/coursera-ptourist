@@ -15,6 +15,9 @@
       controller: TypeEditorController,
       bindings: {
         authz: "<"
+      },
+      require: {
+        typesAuthz: "^sdTypesAuthz"
       }
     });
 
@@ -32,14 +35,18 @@
                                      "spa-demo.authz.Authz",
                                      "spa-demo.subjects.Type"];
   function TypeSelectorController($scope, $stateParams, Authz, Type) {
+    console.log("TypeSelectorController");
     var vm=this;
 
     vm.$onInit = function() {
       console.log("TypeSelectorController",$scope);
       $scope.$watch(function(){ return Authz.getAuthorizedUserId(); },
                     function(){
+                      console.log("TypeSelectorController-watch-Authz.getAuthorizedUserId");
+                      console.log("Authz", Authz.getAuthorizedUserId());
                       if (!$stateParams.id) {
                         vm.items = Type.query();
+                        console.log(vm.items);
                       }
                     });
     }
