@@ -85,7 +85,7 @@ namespace :ptourist do
     puts "removing #{Image.count} images"
     puts "removing #{TypeOfThing.count} types of things"
     DatabaseCleaner[:active_record].clean_with(:truncation, {:except=>%w[users]})
-    DatabaseCleaner[:mongoid].clean_with(:truncation)
+    #DatabaseCleaner[:mongoid].clean_with(:truncation)
   end
 
   desc "delete all data"
