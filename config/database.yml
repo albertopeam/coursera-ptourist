@@ -17,5 +17,4 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  database: capstone_demoapp_production
   #url: #<%= ENV['DATABASE_URL'] %>

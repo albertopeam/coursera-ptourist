@@ -14,6 +14,7 @@
     service.user=null;        //holds result from server
     service.userPromise=null; //promise during server request
     service.admin=false;
+    service.thingOrganizer=false;
     service.originator=[]
 
     service.getAuthorizedUser=getAuthorizedUser;
@@ -22,6 +23,7 @@
     service.isAdmin=isAdmin;
     service.isOriginator=isOriginator;
     service.isOrganizer=isOrganizer;
+    service.isThingOrganizer=isThingOrganizer;
     service.isMember=isMember;
     service.hasRole=hasRole;
 
@@ -42,6 +44,7 @@
 
       service.admin=false;
       service.originator=[];
+      service.thingOrganizer=false;
       whoAmI.get().$promise.then(
         function(response){processUserRoles(response, deferred);},
         function(response){processUserRoles(response, deferred);});
@@ -51,10 +54,13 @@
     function processUserRoles(response, deferred) {
       console.log("processing roles", service.state, response);
       angular.forEach(response.user_roles, function(value){
+        console.log("role:", value);
         if (value.role_name=="admin") {
           service.admin=true;
         } else if (value.role_name=="originator") {
           service.originator.push(value.resource);
+        } else if (value.role_name=="organizer" && value.resource == "Thing") {
+          service.thingOrganizer=true;
         }
       });
 
@@ -104,6 +110,10 @@
     //users with this role have the lead when modifying the instance
     function isOrganizer(item) {
       return !item ? false : hasRole(item.user_roles, 'organizer');
+    }
+
+    function isThingOrganizer(){
+      return service.thingOrganizer;
     }
 
     //return true if the current user has a member role for the instance

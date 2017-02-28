@@ -22,12 +22,9 @@
     };
 
     TypesAuthz.prototype.canModify=function() {
-      console.log("TypesAuthz.canModify");
-
-      return true;
-      //TODO: falta saber si tiene el rol de Thing organizer!!!
-      console.log("TypesAuthz.canModify: ", can);
-      return can;
+      var can = Authz.isThingOrganizer();
+      console.log("TypesAuthz.canModify", can);
+      return can;      
     };
 
     return new TypesAuthz();
