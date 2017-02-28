@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: localhost #<%= ENV['POSTGRES_HOST'] %>
+  host: localhost
   port: 5432
 
 development:
@@ -17,4 +17,4 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  #url: #<%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>
