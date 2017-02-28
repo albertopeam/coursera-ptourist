@@ -50,11 +50,12 @@
 
 
     <div class="type-controls"
-        ng-show="$ctrl.authz.canModify() && $ctrl.linkable_things.length>0">
+        ng-show="$ctrl.authz.canModify()">
       <span>
         <span ng-show="$ctrl.item.id">
           <button name="type-update"
                   type="submit"
+                  ng-show="$ctrl.linkable_things.length>0"
                   ng-disabled="$ctrl.selected_linkables.length==0"
                   ng-click="$ctrl.linkThings()">Link to Things</button>
 
