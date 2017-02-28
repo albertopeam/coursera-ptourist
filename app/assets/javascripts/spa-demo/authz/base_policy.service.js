@@ -27,7 +27,7 @@
       return Authz.isOriginator(this.resourceName);
     };
     BasePolicy.prototype.canQuery = function() {
-      //console.log("BasePolicy.canQuery");
+      console.log("BasePolicy.canQuery");
       return true;
     };
     BasePolicy.prototype.canUpdate = function(item) {
