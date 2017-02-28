@@ -51,6 +51,8 @@
       vm.authz.authenticated = TypesAuthz.isAuthenticated();
       vm.authz.canQuery      = TypesAuthz.canQuery();
       vm.authz.canModify      = TypesAuthz.canModify();
+      
+      console.log("checkAccess", item, vm.authz);
     }
   }
 })();
