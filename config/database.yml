@@ -14,6 +14,7 @@ test:
   database: capstone_demoapp_test
 
 production:
+  <<: *default
   adapter: postgresql
   encoding: unicode
   pool: 5
